@@ -13,7 +13,7 @@ class App extends Component {
     super();
     this.state = {
       todos
-    }
+    };
     this.handleAddTodo = this.handleAddTodo.bind(this);
   }
 
@@ -43,7 +43,7 @@ class App extends Component {
               </span>
             </div>
             <div className="card-body">
-              {todo.description}
+                <iframe title={todo.title} width="180" height="227" src={todo.description} frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
             </div>
             <div className="card-footer">
               <button

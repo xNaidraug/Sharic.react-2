@@ -25,7 +25,8 @@ class TodoForm extends Component {
   }
 
   handleInputChange(e) {
-    const {value, name} = e.target;
+
+    const {value, name} =e.target ;
     console.log(value, name);
     this.setState({
       [name]: value
@@ -34,6 +35,7 @@ class TodoForm extends Component {
 
   render() {
     return (
+
       <div className="card">
         <form onSubmit={this.handleSubmit} className="card-body">
           <div className="form-group">
