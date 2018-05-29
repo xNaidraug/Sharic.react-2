@@ -8,6 +8,7 @@ import { todos } from './todos.json';
 // subcomponents
 import TodoForm from './components/TodoForm';
 import Navigator from './components/Navigator';
+import Editar from "./components/Editar";
 
 class App extends Component {
     constructor() {
@@ -63,7 +64,7 @@ class App extends Component {
             <div className="App">
 
                 <Navigator/>
-
+                <Editar/>
                 <div className="container">
                     <div className="row mt-4">
 
