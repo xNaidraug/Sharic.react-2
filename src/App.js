@@ -1,82 +1,90 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Navegacion from './componentes/Navegación';
-import Forumalrio from './componentes/FormularioTareas'
-import  { tareas } from './tarea';
 
+// data
+import { todos } from './todos.json';
 
-
-
-
-
-
+// subcomponents
+import TodoForm from './components/TodoForm';
 
 class App extends Component {
-   // se ejecuta según se crea el componente antes de devolver la interfaz
-    constructor(){
-        super();
-        this.state = {
-           tareas
-        };
-        this.AgregarTarea = this.AgregarTarea.bind(this);
-
-    };
-
-
-    AgregarTarea(tarea){
-        this.setState({
-            tareas: [this.state.tareas, tarea]
-        })
+  constructor() {
+    super();
+    this.state = {
+      todos
     }
+    this.handleAddTodo = this.handleAddTodo.bind(this);
+  }
+
+  removeTodo(index) {
+    this.setState({
+      todos: this.state.todos.filter((e, i) => {
+        return i !== index
+      })
+    });
+  }
+
+  handleAddTodo(todo) {
+    this.setState({
+      todos: [...this.state.todos, todo]
+    })
+  }
 
   render() {
+    const todos = this.state.todos.map((todo, i) => {
+      return (
+        <div className="col-md-4" key={i}>
+          <div className="card mt-4">
+            <div className="card-title text-center">
+              <h3>{todo.title}</h3>
+              <span className="badge badge-pill badge-danger ml-2">
+                {todo.priority}
+              </span>
+            </div>
+            <div className="card-body">
+              {todo.description}
+            </div>
+            <div className="card-footer">
+              <button
+                className="btn btn-danger"
+                onClick={this.removeTodo.bind(this, i)}>
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )
+    });
 
-      const tarea =  this.state.tareas.map((tarea, i)=>{
-            return(
-               <div className="col-md-4">
-                   <div className="card">
-                       <div className="card-header">
-                           <h3>{tarea.tittle}</h3>
-                           <span className="badge badge-pill badge-danger">
-                               {tarea.prioridad}
-                           </span>
-                       </div>
-                       <div className="card-body">
-                           <p> {tarea.descripcion}</p>
-                           <p>{tarea.responsable}</p>
-                       </div>
-
-                   </div>
-               </div>
-            )
-      });
-
+    // RETURN THE COMPONENT
     return (
       <div className="App">
 
-          <Navegacion>
-              Tareas
-              <span className="badge badge-pill badge-light ml-2">
-                  {this.state.length}
-              </span>
-          </Navegacion>
+        <nav className="navbar navbar-dark bg-dark">
+          <a className="navbar-brand" href="/">
+            Tasks
+            <span className="badge badge-pill badge-light ml-2">
+              {this.state.todos.length}
+            </span>
+          </a>
+        </nav>
 
-         <div className="container">
-             <div className="row mt-4">
-                 {tarea}
-             </div>
+        <div className="container">
+          <div className="row mt-4">
 
-         </div>
-          <img src={logo} className="App-logo" alt="logo" />
+            <div className="col-md-4 text-center">
+                <img src={logo} className="App-logo" alt="logo" />
+              <TodoForm onAddTodo={this.handleAddTodo}></TodoForm>
+            </div>
 
-
-
-
-          <Forumalrio onAddTarea={this.AgregarTarea}/>
-
-
-
+            <div className="col-md-8">
+              <div className="row">
+                {todos}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
