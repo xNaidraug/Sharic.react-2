@@ -9,6 +9,7 @@ import { todos } from './todos.json';
 import TodoForm from './components/TodoForm';
 import Navigator from './components/Navigator';
 import Editar from "./components/Editar";
+import Listas from './components/Listas';
 
 class App extends Component {
     constructor() {
@@ -78,6 +79,7 @@ class App extends Component {
                                 {todos}
                             </div>
                         </div>
+                        <Listas/>
                     </div>
                 </div>
             </div>
